@@ -1,6 +1,8 @@
 package fragment;
 
+import android.app.AlertDialog;
 import android.app.Fragment;
+import android.content.DialogInterface;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -8,11 +10,13 @@ import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.OrientationHelper;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import Utils.MySQLHelper;
@@ -40,6 +44,8 @@ public class ClockFragment extends Fragment{
     private List<List<String>> mData;
     private SQLiteDatabase db;
     private Cursor cursor;
+    private Date dateTime;
+    private String dateString;
 
     @Nullable
     @Override
@@ -53,7 +59,9 @@ public class ClockFragment extends Fragment{
         mySQLHelper = new MySQLHelper(getActivity(),"clock.db",null,1);
         mData = getDataFromSQL();
         //设置Adapter
-        mClockRecyclerAdapter = new ClockRecyclerAdapter(getActivity(), mData);
+        //获取需要的SQLhelper
+        mySQLHelper = new MySQLHelper(getActivity(),"clock.db",null,1);
+        mClockRecyclerAdapter = new ClockRecyclerAdapter(mySQLHelper,getActivity(), mData);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         //设置布局管理器
         rvClock.setLayoutManager(layoutManager);
@@ -61,6 +69,44 @@ public class ClockFragment extends Fragment{
         layoutManager.setOrientation(OrientationHelper.VERTICAL);
         //设置Adapter
         rvClock.setAdapter(mClockRecyclerAdapter);
+
+        mClockRecyclerAdapter.setOnItemClickLitener(new ClockRecyclerAdapter.OnItemClickLitener() {
+            @Override
+            public void onItemClick(View view, int position) {
+
+            }
+
+            @Override
+            public void onItemLongClick(View view, final int position) {
+                switch (view.getId()) {
+                    case R.id.cv_clock:
+                        AlertDialog.Builder builder=new AlertDialog.Builder(getActivity());
+                        builder.setTitle("提示");
+                        builder.setMessage("您将删除列车 " + mData.get(position).get(0)+ " 的提醒！");
+
+                        builder.setPositiveButton("确认", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+
+                                SQLiteDatabase db = mySQLHelper.getWritableDatabase();
+                                String SQLTrain_id =  mData.get(position).get(0);
+                                String SQLTime = mData.get(position).get(1);
+                                Log.d("CCCCCCCCCCCCCCCC", SQLTime + "   " + SQLTrain_id);
+                                db.delete("Clock", "train_id=? and time=?",
+                                        new String[]{SQLTrain_id, SQLTime});
+                                if (db!=null){
+                                    db.close();
+                                }
+                                mClockRecyclerAdapter.removeItem(position);
+                            }
+
+                        });
+                        builder.setNegativeButton("取消",null);
+                        builder.show();
+                        break;
+                }
+            }
+        });
         return view;
     }
 
@@ -70,7 +116,6 @@ public class ClockFragment extends Fragment{
     */
     public List<List<String>> getDataFromSQL() {
         ArrayList<List<String>> dataList = new ArrayList<>();
-        mySQLHelper = new MySQLHelper(getActivity(),"clock.db",null,1);
         db = mySQLHelper.getReadableDatabase();
         cursor = db.rawQuery("select train_id,time,start,end,from_time,to_time,item_1,item_2 from Clock", null);
         while (cursor.moveToNext()){
@@ -83,6 +128,11 @@ public class ClockFragment extends Fragment{
             data.add(cursor.getString(4));//end_time
             dataList.add(data);
         }
+        cursor.close();
+        db.close();
         return dataList;
+    }
+    public void RefleshAdapter(){
+        mClockRecyclerAdapter.notifyDataSetChanged();
     }
 }

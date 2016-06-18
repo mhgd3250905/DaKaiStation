@@ -7,7 +7,7 @@
     android:clickable="true"
     android:id="@id/cv_item_statin"
     android:foreground="?android:attr/selectableItemBackground"
-    app:cardBackgroundColor="@color/ColorItemStation"
+    app:cardBackgroundColor="@color/ColorWhite"
     app:cardCornerRadius="5dp">
 
     <LinearLayout
@@ -18,7 +18,7 @@
         android:paddingBottom="5dp"
         android:paddingLeft="5dp">
 
-        <ImageView
+        ImageView
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_gravity="center_vertical"

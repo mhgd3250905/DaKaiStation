@@ -6,6 +6,7 @@
     card_view:cardCornerRadius="5dp"
     card_view:cardElevation="5dp"
     android:layout_margin="5dp"
+    android:id="@id/cv_clock"
     card_view:cardBackgroundColor="@color/ColorWhite"
     android:layout_width="match_parent"
     android:layout_height="120dp">

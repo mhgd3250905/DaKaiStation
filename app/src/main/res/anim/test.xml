@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <set xmlns:android="http://schemas.android.com/apk/res/android">
+    <!--点击效果-->
     <item android:state_enabled="true" android:state_pressed="true">
         <objectAnimator
             android:duration="@android:integer/config_shortAnimTime"
@@ -7,6 +8,7 @@
             android:valueTo="0dp"
             android:valueType="floatType" />
     </item>
+    <!--未点击效果-->
     <item>
         <objectAnimator
             android:duration="@android:integer/config_shortAnimTime"
