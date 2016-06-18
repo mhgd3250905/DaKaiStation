@@ -7,6 +7,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import skkk.admin.com.dakai_station.R;
@@ -24,6 +26,8 @@ public class ClockRecyclerAdapter extends RecyclerView.Adapter<ClockRecyclerAdap
     private List<List<String>> mDatas;
     private Context mContext;
     private LayoutInflater inflater;
+    private String dateString;//标准格式时间
+    private Date dateTime;
 
     public ClockRecyclerAdapter(Context mContext, List<List<String>> mDatas) {
         this.mContext = mContext;
@@ -33,15 +37,24 @@ public class ClockRecyclerAdapter extends RecyclerView.Adapter<ClockRecyclerAdap
 
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = inflater.inflate(R.layout.item_clock,parent, false);
+        View view = inflater.inflate(R.layout.item_clock,parent,false);
         MyViewHolder holder= new MyViewHolder(view);
         return holder;
     }
 
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
+
+        //解析时间
+        long timeLong= Long.parseLong(mDatas.get(position).get(1));
+        dateTime = new Date(timeLong);
+
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");//小写的mm表示的是分钟
+        dateString = sdf.format(dateTime);
+
+
         holder.tvClockTrainName.setText(mDatas.get(position).get(0));
-        holder.tvClockTime.setText(mDatas.get(position).get(1));
+        holder.tvClockTime.setText(dateString);
         holder.tvClockStart.setText(mDatas.get(position).get(2));
         holder.tvClockEnd.setText(mDatas.get(position).get(3));
         holder.tvClockStartTime.setText(mDatas.get(position).get(4));

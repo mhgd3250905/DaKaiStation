@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -85,6 +86,7 @@ public class StationRecyclerAdapter extends RecyclerView.Adapter<StationRecycler
         private long diff;//间隔时间的时间戳
         private long resultTime;//闹钟提醒时间的时间戳
 
+
         public MyViewHolder(View view) {
             super(view);
             tvStationTrainNumber=(TextView) view.findViewById(R.id.tv_station_train_number);
@@ -93,11 +95,13 @@ public class StationRecyclerAdapter extends RecyclerView.Adapter<StationRecycler
             tvStationStart=(TextView) view.findViewById(R.id.tv_station_start_name);
             tvStationEnd=(TextView) view.findViewById(R.id.tv_station_end_name);
             llBg= (LinearLayout) view.findViewById(R.id.ll_station_item_bg);
-            llBg.setOnClickListener(this);
+            CardView cvItemStation= (CardView) view.findViewById(R.id.cv_item_statin);
+            cvItemStation.setOnClickListener(this);
         }
 
         @Override
         public void onClick(View v) {
+
             final AlertDialog.Builder builder=new AlertDialog.Builder(v.getContext());
             builder.setTitle("");
             builder.setIcon(R.drawable.ic_menu_camera);

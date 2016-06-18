@@ -3,12 +3,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="80dp"
-    android:layout_margin="8dp"
+    android:layout_margin="5dp"
     android:clickable="true"
     android:id="@id/cv_item_statin"
     android:foreground="?android:attr/selectableItemBackground"
-    app:cardBackgroundColor="@color/ColorItemStation"
-    app:cardCornerRadius="5dp">
+    app:cardBackgroundColor="@color/ColorWhite"
+    app:cardCornerRadius="5dp"
+    android:stateListAnimator="@anim/test"
+    >
 
     <LinearLayout
         android:id="@id/ll_station_item_bg"
@@ -18,11 +20,6 @@
         android:paddingBottom="5dp"
         android:paddingLeft="5dp">
 
-        <ImageView
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_gravity="center_vertical"
-            android:src="@drawable/station_icon" />
 
         <LinearLayout
             android:layout_width="0dp"
@@ -37,7 +34,7 @@
                 android:layout_weight="5"
                 android:gravity="center"
                 android:text="G104"
-                android:textColor="@color/colorChinaLightGreen"
+                android:textColor="@color/colorPrimary"
                 android:textSize="20dp"
                 android:textStyle="bold" />
 

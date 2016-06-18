@@ -39,5 +39,6 @@
     <item name="tv_clock_end_time" type="id">tv_clock_end_time</item>
     <item name="tv_clock_train_name" type="id">tv_clock_train_name</item>
     <item name="tv_clock_time" type="id">tv_clock_time</item>
+    <item name="cv_item_statin" type="id">cv_item_statin</item>
 
 </resources>

@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@color/ColorBG_mi">
+    android:background="@color/ColorWhite">
 
     <TextView
         android:textStyle="bold"
@@ -14,7 +14,8 @@
         android:textSize="16dp"
         android:gravity="center"
         android:textColor="#ff80ab"
-        android:id="@id/tv_station_total_count"/>
+        android:id="@id/tv_station_total_count"
+        android:layout_marginBottom="10dp"/>
 
     <include
         android:id="@id/rv_station_data"
