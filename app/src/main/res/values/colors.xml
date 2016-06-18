@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#50a0b4</color>
+    <color name="colorPrimaryDark">#50a0b4</color>
+    <color name="colorAccent">#f06292</color>
+    <color name="colorChinaLightGreen">#50a0b4</color>
+    <color name="colorpink">#f06292</color>
+    <color name="GoodRed">#ef5350</color>
+    <color name="stationColor">#282828</color>
+    <color name="ColorWhite">#fff</color>
+    <color name="ColorGreen_2">#39AC9D</color>
+    <color name="ColorBG_mi">#f0f0dc</color>
+    <color name="ColorItemStation">#86CB93</color>
+    <color name="ColorItemClock">#546e7a</color>
+</resources>

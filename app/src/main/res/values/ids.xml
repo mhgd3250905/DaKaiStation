@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="home_fragment" type="id">home_fragment</item>
+    <item name="fragment_toolbar" type="id">fragment_toolbar</item>
+    <item name="et_select" type="id">et_fragment_select</item>
+    <item name="btn_query" type="id">btn_selectfragment</item>
+    <item name="tv_train_name" type="id">tv_train_name</item>
+    <item name="tv_train_start" type="id">tv_train_start</item>
+    <item name="tv_train_end" type="id">tv_train_end</item>
+    <item name="tv_train_start_time" type="id">tv_train_start_time</item>
+    <item name="tv_train_end_time" type="id">tv_train_start_time</item>
+    <item name="cl_home" type="id">cl_home</item>
+    <item name="rv_show_station" type="id">rv_show_station</item>
+
+    <item name="tv_arrived_time" type="id">tv_arrived_time</item>
+    <item name="tv_leave_time" type="id">tv_leave_time</item>
+    <item name="tv_name_item" type="id">tv_name_item</item>
+    <item name="tv_stay_item" type="id">tv_stay_item</item>
+    <item name="actv_start_station" type="id">actv_start_station</item>
+    <item name="actv_end_station" type="id">actv_end_station</item>
+    <item name="iv_exchange_station" type="id">iv_exchange_station</item>
+    <item name="rv_station_data" type="id">rv_station_data</item>
+    <item name="tv_station_train_number" type="id">tv_station_train_number</item>
+    <item name="tv_station_arrived_time" type="id">tv_station_arrived_time</item>
+    <item name="tv_station_start_name" type="id">tv_station_start_name</item>
+    <item name="tv_station_end_name" type="id">tv_station_end_name</item>
+    <item name="tv_station_leave_time" type="id">tv_station_leave_time</item>
+    <item name="tv_title" type="id">tv_title</item>
+    <item name="title_fragment" type="id">title_fragment</item>
+    <item name="tv_station_long_time" type="id">tv_station_long_time</item>
+    <item name="ll_station_item_bg" type="id">ll_station_item_bg</item>
+    <item name="tv_train_mileage" type="id">tv_train_mileage</item>
+    <item name="tv_station_total_count" type="id">tv_station_total_count</item>
+    <item name="iv_title" type="id">iv_title</item>
+    <item name="rv_clock" type="id">rv_clock</item>
+    <item name="tv_clock_start" type="id">tv_clock_start</item>
+    <item name="tv_clock_end" type="id">tv_clock_end</item>
+    <item name="tv_clock_start_time" type="id">tv_clock_start_time</item>
+    <item name="tv_clock_end_time" type="id">tv_clock_end_time</item>
+    <item name="tv_clock_train_name" type="id">tv_clock_train_name</item>
+    <item name="tv_clock_time" type="id">tv_clock_time</item>
+
+</resources>

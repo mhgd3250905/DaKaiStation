@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/ColorBG_mi">
+
+    <TextView
+        android:textStyle="bold"
+        android:layout_margin="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="总计111趟列车"
+        android:textSize="16dp"
+        android:gravity="center"
+        android:textColor="#ff80ab"
+        android:id="@id/tv_station_total_count"/>
+
+    <include
+        android:id="@id/rv_station_data"
+        layout="@layout/recycler_view" />
+
+</LinearLayout>

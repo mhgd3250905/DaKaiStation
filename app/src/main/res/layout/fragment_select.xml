@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
+    android:orientation="vertical">
+
+
+    <LinearLayout
+        android:layout_marginTop="@dimen/activity_horizontal_margin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+
+        <LinearLayout
+            android:layout_margin="@dimen/activity_horizontal_margin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content">
+                <AutoCompleteTextView
+                    android:imeOptions="actionGo"
+                    style="@style/EditInputStyle"
+                    android:completionThreshold="1"
+                    android:id="@id/actv_start_station"
+                    android:layout_marginRight="15dp"
+                    android:hint="起点" />
+            </android.support.design.widget.TextInputLayout>
+
+            <ImageView
+                android:id="@id/iv_exchange_station"
+                android:layout_gravity="bottom"
+                android:layout_width="40dp"
+                android:src="@drawable/exchange_arrow"
+                android:layout_height="40dp"
+                />
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content">
+                <AutoCompleteTextView
+                    android:imeOptions="actionGo"
+                    style="@style/EditInputStyle"
+                    android:completionThreshold="1"
+                    android:id="@id/actv_end_station"
+                    android:layout_marginLeft="15dp"
+                    android:hint="终点" />
+            </android.support.design.widget.TextInputLayout>
+        </LinearLayout>
+
+        <EditText
+            android:imeOptions="actionGo"
+            style="@style/EditInputStyle"
+            android:layout_margin="@dimen/activity_horizontal_margin"
+            android:id="@id/et_select"
+            android:hint="@string/SelectFragment_train_id"
+            />
+
+    </android.support.design.widget.TextInputLayout>
+
+    <Button
+        android:elevation="5dp"
+        android:id="@id/btn_query"
+        android:onClick="myQuery"
+        android:layout_margin="@dimen/activity_horizontal_margin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:textColor="@color/ColorWhite"
+        android:background="@drawable/shape_btn"
+        android:textSize="20dp"
+        android:text="@string/SelectFragment_query" />
+    </LinearLayout>
+
+</android.support.design.widget.CoordinatorLayout>

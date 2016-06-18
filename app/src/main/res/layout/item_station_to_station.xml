@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="80dp"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:paddingBottom="5dp"
+        android:paddingLeft="5dp"
+        android:id="@id/ll_station_item_bg"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="5dp"
+        android:elevation="5dp"
+        android:background="@drawable/item_station_shape"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_gravity="center_vertical"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/station_icon"/>
+        <LinearLayout
+            android:layout_weight="1.5"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_weight="5"
+                android:id="@id/tv_station_train_number"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:gravity="center"
+                android:text="G104"
+                android:textColor="@color/ColorWhite"
+                android:textSize="20dp"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_weight="5"
+                android:id="@id/tv_station_start_name"
+                style="@style/StartEndTextStyle"
+                android:text="上海虹桥" />
+
+            <TextView
+                android:layout_weight="3"
+                android:id="@id/tv_station_leave_time"
+                style="@style/StartEndTextStyle"
+                android:text="07:10"
+                 />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_weight="5"
+                android:id="@id/tv_station_end_name"
+                style="@style/StartEndTextStyle"
+                android:text="苏州北" />
+
+            <TextView
+                android:layout_weight="3"
+                android:id="@id/tv_station_arrived_time"
+                style="@style/StartEndTextStyle"
+                android:text="07:33"
+             />
+
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

@@ -1,0 +1,71 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+
+        <!--使状态栏，导航栏可绘制-->
+        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
+
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <style name="AppTheme.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
+        <item name="elevation">0dp</item>
+        <item name="android:background">?attr/colorPrimary</item>
+    </style>
+
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+    <!--show界面 起点站与终点站的格式-->
+    <style name="ShowStartEnd">
+        <item name="android:textSize">22dp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:textColor">@color/ColorWhite</item>
+    </style>
+
+    <!--show界面 起点时间与到点时间的格式-->
+    <style name="ShowStartEndTime">
+        <item name="android:textSize">16dp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/ColorWhite</item>
+    </style>
+
+    <!--所有Edit输入框的颜色风格-->
+    <style name="EditInputStyle">
+        <item name="android:textColor">@color/colorChinaLightGreen</item>
+        <item name="android:textColorHint">@color/colorChinaLightGreen</item>
+        <item name="android:textColorLink">@color/colorChinaLightGreen</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+    <!--每一个站点的出发结束文字风格-->
+    <style name="StartEndTextStyle">
+        <item name="android:textColor">@color/ColorWhite</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">18dp</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">0dp</item>
+    </style>
+
+    <style name="ShowStartEndTextStyle">
+        <item name="android:textColor">@color/ColorWhite</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">18dp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">match_parent</item>
+    </style>
+</resources>
