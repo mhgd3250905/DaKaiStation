@@ -1,8 +1,9 @@
 package fragment;
 
+import android.app.DatePickerDialog;
 import android.app.Fragment;
-import android.content.Context;
-import android.content.SharedPreferences;
+import android.content.ContentValues;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
@@ -11,11 +12,14 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.DatePicker;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
+import java.util.Calendar;
 import java.util.List;
 
 import Utils.MySQLHelper;
@@ -47,8 +51,15 @@ public class StationToStationFragment extends Fragment {
     private String formTo;
     private TextView tvStationTotalcount;
     private MySQLHelper mySQLHelper;//数据库帮助
-    private SharedPreferences mPref;
-    private String[] item={"24小时","6小时","2小时","1小时","半小时"};
+    private SQLiteDatabase db;
+    private String clocktimeString;
+    private List<StationBean> mData;
+    private Calendar calendar;
+    private int mYear;
+    private int mMonth;
+    private int mDay;
+
+
 
     @Nullable
     @Override
@@ -58,11 +69,10 @@ public class StationToStationFragment extends Fragment {
         view = inflater.inflate(R.layout.fragment_station_to_station, container, false);
         //获取RecyclerView实例
         rvStationData = (RecyclerView) view.findViewById(R.id.rv_station_data);
-        List<StationBean> mData = getData();
-        mySQLHelper = new MySQLHelper(getActivity(),"clock.db",null,1);
-        mPref=getActivity().getSharedPreferences("config", Context.MODE_PRIVATE);
+        mData = getData();
+        mySQLHelper = new MySQLHelper(getActivity(), "clock.db", null, 1);
         //设置Adapter
-        stationRecyclerAdapter = new StationRecyclerAdapter(mPref,item,mySQLHelper, getActivity(), mData);
+        stationRecyclerAdapter = new StationRecyclerAdapter(getActivity(), mData);
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         //设置布局管理器
@@ -76,9 +86,75 @@ public class StationToStationFragment extends Fragment {
         homeActivity = (HomeActivity) getActivity();
         homeActivity.setCollapsingToolbarTitle(formTo);
 
-        tvStationTotalcount= (TextView) view.findViewById(R.id.tv_station_total_count);
-        tvStationTotalcount.setText("总计 "+totalcount+" 趟列车");
+        tvStationTotalcount = (TextView) view.findViewById(R.id.tv_station_total_count);
+        tvStationTotalcount.setText("总计 " + totalcount + " 趟列车");
+        calendar = Calendar.getInstance();
+        stationRecyclerAdapter.setOnItemClickLitener(new StationRecyclerAdapter.OnItemClickLitener() {
+            @Override
+            public void onItemClick(View view, final int position) {
+                mYear = calendar.get(Calendar.YEAR);
+                mMonth = calendar.get(Calendar.MONTH);
+                mDay = calendar.get(Calendar.DAY_OF_MONTH);
+                DatePickerDialog mPicker = new DatePickerDialog(getActivity(),
+                        new DatePickerDialog.OnDateSetListener() {
+                            @Override
+                            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                                mYear = year;
+                                mMonth = monthOfYear+1;
+                                mDay = dayOfMonth;
+                                //判断选择日期不可以晚于今天
+                                if(mYear>=calendar.get(Calendar.YEAR)){
+                                    if(mMonth>=calendar.get(Calendar.MONTH)){
+                                        if(mDay>calendar.get(Calendar.DAY_OF_MONTH)){
+                                            db = mySQLHelper.getWritableDatabase();
+                                            ContentValues values = new ContentValues();
 
+                                            //获得标准格式的时间
+                                            clocktimeString = mYear + "-" + mMonth + "-" + mDay;
+
+                                /*SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");//小写的mm表示的是分钟
+                                try {
+                                    clocktime = sdf.parse(clocktimeString);
+                                } catch (ParseException e) {
+                                    e.printStackTrace();
+                                }
+
+                                diff = 24 * 60 * 60 * 1000;
+                                resultTime = clocktime.getTime() - diff;*/
+
+                                            values.put("train_id", mData.get(position).getTrainOpp());
+                                            values.put("start", mData.get(position).getStart_staion());
+                                            values.put("time", clocktimeString);
+                                            values.put("end", mData.get(position).getEnd_station());
+                                            values.put("from_time", mData.get(position).getLeave_time());
+                                            values.put("to_time", mData.get(position).getArrived_time());
+                                            db.insert("Clock", null, values);
+                                            if (db != null) {
+                                                db.close();
+                                            }
+                                            Toast.makeText(getActivity(),
+                                                    "列车" + mData.get(position).getTrainOpp() +
+                                                            "已加入提醒列表"
+                                                    , Toast.LENGTH_SHORT).show();
+                                        }else {
+                                            Toast.makeText(getActivity(), "请选择不早于今日的提醒日期", Toast.LENGTH_SHORT).show();
+                                        }
+                                    }else {
+                                        Toast.makeText(getActivity(), "请选择不早于今日的提醒日期", Toast.LENGTH_SHORT).show();
+                                    }
+                                }else{
+                                    Toast.makeText(getActivity(),"请选择不早于今日的提醒日期", Toast.LENGTH_SHORT).show();
+                                }
+
+                            }
+                        }, mYear, mMonth, mDay);
+                mPicker.show();
+            }
+
+            @Override
+            public void onItemLongClick(View view, int position) {
+            }
+        });
         return view;
     }
 

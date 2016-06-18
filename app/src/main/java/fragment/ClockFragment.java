@@ -82,24 +82,23 @@ public class ClockFragment extends Fragment{
                     case R.id.cv_clock:
                         AlertDialog.Builder builder=new AlertDialog.Builder(getActivity());
                         builder.setTitle("提示");
-                        builder.setMessage("您将删除列车 " + mData.get(position).get(0)+ " 的提醒！");
+                        builder.setMessage("您将删除列车 " + mData.get(position).get(0) + " 在 " + mData.get(position).get(1)+ " 的提醒！");
 
                         builder.setPositiveButton("确认", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
 
                                 SQLiteDatabase db = mySQLHelper.getWritableDatabase();
-                                String SQLTrain_id =  mData.get(position).get(0);
+                                String SQLTrain_id = mData.get(position).get(0);
                                 String SQLTime = mData.get(position).get(1);
                                 Log.d("CCCCCCCCCCCCCCCC", SQLTime + "   " + SQLTrain_id);
                                 db.delete("Clock", "train_id=? and time=?",
                                         new String[]{SQLTrain_id, SQLTime});
-                                if (db!=null){
+                                if (db != null) {
                                     db.close();
                                 }
                                 mClockRecyclerAdapter.removeItem(position);
                             }
-
                         });
                         builder.setNegativeButton("取消",null);
                         builder.show();

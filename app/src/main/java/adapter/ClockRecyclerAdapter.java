@@ -8,7 +8,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -50,6 +49,7 @@ public class ClockRecyclerAdapter extends RecyclerView.Adapter<ClockRecyclerAdap
     }
 
 
+
     public ClockRecyclerAdapter(MySQLHelper mySQLHelper, Context mContext, List<List<String>> mDatas) {
         this.mySQLHelper = mySQLHelper;
         this.mContext = mContext;
@@ -67,15 +67,15 @@ public class ClockRecyclerAdapter extends RecyclerView.Adapter<ClockRecyclerAdap
     @Override
     public void onBindViewHolder(final MyViewHolder holder, int position) {
 
-        //解析时间
+        /*//解析时间
         long timeLong = Long.parseLong(mDatas.get(position).get(1));
         dateTime = new Date(timeLong);
 
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");//小写的mm表示的是分钟
-        dateString = sdf.format(dateTime);
+        dateString = sdf.format(dateTime);*/
 
         holder.tvClockTrainName.setText(mDatas.get(position).get(0));
-        holder.tvClockTime.setText(dateString);
+        holder.tvClockTime.setText("提醒发车日期："+mDatas.get(position).get(1));
         holder.tvClockStart.setText(mDatas.get(position).get(2));
         holder.tvClockEnd.setText(mDatas.get(position).get(3));
         holder.tvClockStartTime.setText(mDatas.get(position).get(4));

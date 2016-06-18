@@ -33,6 +33,25 @@ public class MyRecyclerAdapter extends RecyclerView.Adapter<MyRecyclerAdapter.My
         inflater=LayoutInflater.from(mContext);
     }
 
+
+    /*
+* @desc 设置点击事件
+* @时间 2016/6/18 15:53
+*/
+    public interface OnItemClickLitener
+    {
+        void onItemClick(View view, int position);
+        void onItemLongClick(View view , int position);
+    }
+
+    private OnItemClickLitener mOnItemClickLitener;
+
+    public void setOnItemClickLitener(OnItemClickLitener mOnItemClickLitener)
+    {
+        this.mOnItemClickLitener = mOnItemClickLitener;
+    }
+
+
     /*
     * @desc 界面view设置
     * @时间 2016/6/14 23:46
