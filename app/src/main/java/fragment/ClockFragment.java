@@ -14,9 +14,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import Utils.MySQLHelper;
@@ -44,8 +44,8 @@ public class ClockFragment extends Fragment{
     private List<List<String>> mData;
     private SQLiteDatabase db;
     private Cursor cursor;
-    private Date dateTime;
-    private String dateString;
+    private TextView tvClockTip;
+    private int count;
 
     @Nullable
     @Override
@@ -54,10 +54,16 @@ public class ClockFragment extends Fragment{
         mParentActivity = (HomeActivity) getActivity();
         mParentActivity.setCollapsingToolbarTitle("火车提醒");
 
+
         //获取RecyclerView实例
         rvClock = (RecyclerView) view.findViewById(R.id.rv_clock);
         mySQLHelper = new MySQLHelper(getActivity(),"clock.db",null,1);
         mData = getDataFromSQL();
+        tvClockTip= (TextView) view.findViewById(R.id.tv_clock_tip);
+
+        count=mData.size();
+        checkTIP();
+
         //设置Adapter
         //获取需要的SQLhelper
         mySQLHelper = new MySQLHelper(getActivity(),"clock.db",null,1);
@@ -97,7 +103,8 @@ public class ClockFragment extends Fragment{
                                 if (db != null) {
                                     db.close();
                                 }
-                                mClockRecyclerAdapter.removeItem(position);
+                                count = mClockRecyclerAdapter.removeItem(position);
+                                checkTIP();
                             }
                         });
                         builder.setNegativeButton("取消",null);
@@ -107,6 +114,14 @@ public class ClockFragment extends Fragment{
             }
         });
         return view;
+    }
+
+    private void checkTIP() {
+        if(count==0){
+            tvClockTip.setVisibility(View.VISIBLE);
+        }else{
+            tvClockTip.setVisibility(View.INVISIBLE);
+        }
     }
 
     /*

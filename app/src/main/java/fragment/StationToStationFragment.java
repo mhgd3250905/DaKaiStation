@@ -82,7 +82,6 @@ public class StationToStationFragment extends Fragment {
         //设置Adapter
         rvStationData.setAdapter(stationRecyclerAdapter);
 
-
         homeActivity = (HomeActivity) getActivity();
         homeActivity.setCollapsingToolbarTitle(formTo);
 

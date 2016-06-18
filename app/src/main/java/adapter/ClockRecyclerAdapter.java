@@ -110,9 +110,10 @@ public class ClockRecyclerAdapter extends RecyclerView.Adapter<ClockRecyclerAdap
 
 
     //删除数据
-    public void removeItem(int position) {
+    public int removeItem(int position) {
         mDatas.remove(position);
         notifyItemRemoved(position);
+        return mDatas.size();
     }
 
 
