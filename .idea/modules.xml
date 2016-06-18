@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/DaKai_Station.iml" filepath="$PROJECT_DIR$/DaKai_Station.iml" />
+      <module fileurl="file://$PROJECT_DIR$/DaKaiStation.iml" filepath="$PROJECT_DIR$/DaKaiStation.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>
