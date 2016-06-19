@@ -22,13 +22,18 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.lidroid.xutils.ViewUtils;
 import com.lidroid.xutils.view.annotation.ViewInject;
 
-import service.ClockService;
+import java.util.Timer;
+import java.util.TimerTask;
+
 import fragment.ClockFragment;
 import fragment.SelectFragment;
+import fragment.SettingFragment;
+import service.ClockService;
 import skkk.admin.com.dakai_station.R;
 
 /*
@@ -54,6 +59,7 @@ public class HomeActivity extends AppCompatActivity
     private Notification notification;
     private NotificationCompat.Builder builder;
     private ClockFragment mClockFragment;
+    private SettingFragment mSettingFragment;
 
 
     /*
@@ -67,6 +73,10 @@ public class HomeActivity extends AppCompatActivity
         initUI();
         initData();
         setDefaultFragemnt();
+        boolean needClock = mPref.getBoolean("need_clock", true);
+        if (needClock){
+            startService(new Intent(this, ClockService.class));
+        }
     }
 
 
@@ -139,7 +149,31 @@ public class HomeActivity extends AppCompatActivity
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
-            super.onBackPressed();
+            exitBy2Click(); //调用双击退出函数
+        }
+    }
+
+    /**
+     * 双击退出函数
+     */
+    private static Boolean isExit = false;
+
+    private void exitBy2Click() {
+        Timer tExit = null;
+        if (isExit == false) {
+            isExit = true; // 准备退出
+            Toast.makeText(this, "再按一次退出程序", Toast.LENGTH_SHORT).show();
+            tExit = new Timer();
+            tExit.schedule(new TimerTask() {
+                @Override
+                public void run() {
+                    isExit = false; // 取消退出
+                }
+            }, 2000); // 如果2秒钟内没有按下返回键，则启动定时器取消掉刚才执行的任务
+
+        } else {
+            finish();
+            System.exit(0);
         }
     }
 
@@ -149,6 +183,11 @@ public class HomeActivity extends AppCompatActivity
         getMenuInflater().inflate(R.menu.home, menu);
         return true;
     }
+
+    /*
+    * @desc 设置toolbar上 menu点击事件
+    * @时间 2016/6/19 18:46
+    */
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -175,6 +214,10 @@ public class HomeActivity extends AppCompatActivity
         return super.onOptionsItemSelected(item);
     }
 
+    /*
+    * @desc 设置菜单页面点击事件
+    * @时间 2016/6/19 18:46
+    */
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
@@ -182,24 +225,35 @@ public class HomeActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_camera) {
+            //大开搜索页面
             mSelectFragment = new SelectFragment();
             getFragmentManager().beginTransaction().replace(R.id.home_fragment,
                     mSelectFragment).commit();
+
             // Handle the camera action
         } else if (id == R.id.nav_gallery) {
-
+            //大开提醒页面
             mClockFragment = new ClockFragment();
             getFragmentManager().beginTransaction().replace(R.id.home_fragment,
                     mClockFragment).commit();
 
         } else if (id == R.id.nav_slideshow) {
 
+
         } else if (id == R.id.nav_manage) {
+            //大开设置页面
+            mSettingFragment = new SettingFragment();
+            getFragmentManager().beginTransaction().replace(R.id.home_fragment,
+                    mSettingFragment).commit();
 
         } else if (id == R.id.nav_share) {
+
             stopService(new Intent(this, ClockService.class));
+
         } else if (id == R.id.nav_send) {
+
             startService(new Intent(this, ClockService.class));
+
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

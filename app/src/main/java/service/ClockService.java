@@ -127,9 +127,9 @@ public class ClockService extends Service {
                     .setTicker("提前"+hours+"小时火车提醒")
                     .setDefaults(Notification.DEFAULT_VIBRATE)//默认的闪光灯震动提醒
                     .setWhen(System.currentTimeMillis())//通知时间
-                    .setSmallIcon(R.mipmap.ic_launcher)//设置通知小图标
+                    .setSmallIcon(R.drawable.logo)//设置通知小图标
                     .setLargeIcon(BitmapFactory.decodeResource(getResources(),
-                            R.mipmap.ic_launcher))//设置通知的大图标
+                            R.drawable.logo))//设置通知的大图标
                     .setContentIntent(pi)
                     .build();
             manager.notify(Integer.valueOf(data.get(5)), notification);

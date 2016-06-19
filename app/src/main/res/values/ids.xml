@@ -42,5 +42,6 @@
     <item name="cv_item_statin" type="id">cv_item_statin</item>
     <item name="cv_clock" type="id">cv_clock</item>
     <item name="tv_clock_tip" type="id">tv_clock_tip</item>
+    <item name="msiv_setting_clock" type="id">msiv_setting_clock</item>
 
 </resources>

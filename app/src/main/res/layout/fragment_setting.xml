@@ -1,0 +1,15 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:itheima="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="fragment.SettingFragment">
+
+    <view.MySettingItemView
+        android:id="@id/msiv_setting_clock"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        itheima:desc_off="自动提醒设置已关闭"
+        itheima:desc_on="自动提醒设置已开启"
+        itheima:titleText="自动提醒设置"></view.MySettingItemView>
+</FrameLayout>

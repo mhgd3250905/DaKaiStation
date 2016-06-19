@@ -39,7 +39,6 @@ public class SplashActivity extends AppCompatActivity{
     private long end;//加载数据结束时间
     private long duration;//加载数据持续时间
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
