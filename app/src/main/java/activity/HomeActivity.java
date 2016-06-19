@@ -272,6 +272,8 @@ public class HomeActivity extends AppCompatActivity
     public void setTitle(String s) {
         tvTitle.setText(s);
     }
-
+    public void setTitleImage(int image){
+        ivTitle.setImageResource(image);
+    }
 
 }
