@@ -3,6 +3,8 @@ package fragment;
 import android.app.DatePickerDialog;
 import android.app.Fragment;
 import android.content.ContentValues;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -58,7 +60,7 @@ public class StationToStationFragment extends Fragment {
     private int mYear;
     private int mMonth;
     private int mDay;
-
+    private SharedPreferences mPref;
 
 
     @Nullable
@@ -67,7 +69,11 @@ public class StationToStationFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         view = inflater.inflate(R.layout.fragment_station_to_station, container, false);
+
+        mPref = getActivity().getSharedPreferences("config", Context.MODE_PRIVATE);
+        mPref.edit().putBoolean("fragment_id",false).commit();
         //获取RecyclerView实例
+
         rvStationData = (RecyclerView) view.findViewById(R.id.rv_station_data);
         mData = getData();
         mySQLHelper = new MySQLHelper(getActivity(), "clock.db", null, 1);
@@ -110,16 +116,6 @@ public class StationToStationFragment extends Fragment {
 
                                             //获得标准格式的时间
                                             clocktimeString = mYear + "-" + mMonth + "-" + mDay;
-
-                                /*SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");//小写的mm表示的是分钟
-                                try {
-                                    clocktime = sdf.parse(clocktimeString);
-                                } catch (ParseException e) {
-                                    e.printStackTrace();
-                                }
-
-                                diff = 24 * 60 * 60 * 1000;
-                                resultTime = clocktime.getTime() - diff;*/
 
                                             values.put("train_id", mData.get(position).getTrainOpp());
                                             values.put("start", mData.get(position).getStart_staion());

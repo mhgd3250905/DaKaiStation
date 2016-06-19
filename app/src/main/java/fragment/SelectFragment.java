@@ -2,6 +2,8 @@ package fragment;
 
 import android.app.Fragment;
 import android.app.FragmentTransaction;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
@@ -41,6 +43,7 @@ public class SelectFragment extends Fragment {
     private ImageView ivExchangeStation;
     private String trainId;
     private HomeActivity homeActivity;
+    private SharedPreferences mPref;
 
     @Nullable
     @Override
@@ -48,6 +51,9 @@ public class SelectFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_select, container, false);
+
+        mPref = getActivity().getSharedPreferences("config", Context.MODE_PRIVATE);
+        mPref.edit().putBoolean("fragment_id",true).commit();
 
         etSelect = (EditText) view.findViewById(R.id.et_select);
         actvStartStation = (AutoCompleteTextView) view.findViewById(R.id.actv_start_station);

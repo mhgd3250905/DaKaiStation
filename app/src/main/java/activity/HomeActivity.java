@@ -149,7 +149,15 @@ public class HomeActivity extends AppCompatActivity
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
-            exitBy2Click(); //调用双击退出函数
+            if(mPref.getBoolean("fragment_id",false)){
+                exitBy2Click(); //调用双击退出函数
+            }else{
+
+                //大开搜索页面
+                mSelectFragment = new SelectFragment();
+                getFragmentManager().beginTransaction().replace(R.id.home_fragment,
+                        mSelectFragment).commit();
+            }
         }
     }
 

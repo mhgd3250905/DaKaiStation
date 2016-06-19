@@ -2,7 +2,9 @@ package fragment;
 
 import android.app.AlertDialog;
 import android.app.Fragment;
+import android.content.Context;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -45,11 +47,15 @@ public class ClockFragment extends Fragment{
     private Cursor cursor;
     private TextView tvClockTip;
     private int count;
+    private SharedPreferences mPref;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.fragment_clock,container,false);
+        view = inflater.inflate(R.layout.fragment_clock, container, false);
+        mPref = getActivity().getSharedPreferences("config", Context.MODE_PRIVATE);
+
+        mPref.edit().putBoolean("fragment_id",false).commit();
         mParentActivity = (HomeActivity) getActivity();
         mParentActivity.setCollapsingToolbarTitle("火车提醒");
 

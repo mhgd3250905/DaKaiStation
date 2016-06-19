@@ -11,7 +11,6 @@ import android.graphics.BitmapFactory;
 import android.os.IBinder;
 import android.support.v7.app.NotificationCompat;
 import android.util.Log;
-import android.widget.Toast;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -55,7 +54,6 @@ public class ClockService extends Service {
     public void onCreate() {
         super.onCreate();
         Log.d("AAAAAAAAA", "提醒服务已开启");
-        Toast.makeText(ClockService.this, "提醒服务已开启", Toast.LENGTH_SHORT).show();
     }
 
     @Override

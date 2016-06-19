@@ -71,6 +71,10 @@ public class ShowFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         view = inflater.inflate(R.layout.fragment_show, container, false);
+
+        mPref = getActivity().getSharedPreferences("config", Context.MODE_PRIVATE);
+        mPref.edit().putBoolean("fragment_id",false).commit();
+
         init();
 
         mRecyclerView = (RecyclerView) view.findViewById(R.id.rv_show_station);
@@ -109,7 +113,6 @@ public class ShowFragment extends Fragment {
         tvMainEndTime = (TextView) view.findViewById(R.id.tv_train_end_time);
         tvMainMileage= (TextView) view.findViewById(R.id.tv_train_mileage);
 
-        mPref = getActivity().getSharedPreferences("config", Context.MODE_PRIVATE);
         Gson gson = new Gson();
         java.lang.reflect.Type type = new TypeToken<AllData>() {
         }.getType();

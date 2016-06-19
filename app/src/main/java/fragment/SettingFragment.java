@@ -9,6 +9,7 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import service.ClockService;
 import skkk.admin.com.dakai_station.R;
@@ -24,7 +25,9 @@ public class SettingFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_setting, container, false);
+
         mPref=getActivity().getSharedPreferences("config", Context.MODE_PRIVATE);
+        mPref.edit().putBoolean("fragment_id", false).commit();
 
         mySettingItemView= (MySettingItemView) view.findViewById(R.id.msiv_setting_clock);
         mySettingItemView.setTitle("是否开启火车提醒");
@@ -48,7 +51,7 @@ public class SettingFragment extends Fragment {
                 } else {
                     mySettingItemView.setChecked(true);
                     mPref.edit().putBoolean("need_clock",true).commit();
-
+                    Toast.makeText(getActivity(), "提醒服务已开启", Toast.LENGTH_SHORT).show();
                     getActivity().startService(new Intent(getActivity(), ClockService.class));
                 }
             }
