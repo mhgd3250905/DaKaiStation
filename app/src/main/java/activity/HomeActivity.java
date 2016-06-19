@@ -2,6 +2,7 @@ package activity;
 
 import android.app.Notification;
 import android.app.NotificationManager;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
@@ -25,6 +26,7 @@ import android.widget.TextView;
 import com.lidroid.xutils.ViewUtils;
 import com.lidroid.xutils.view.annotation.ViewInject;
 
+import service.ClockService;
 import fragment.ClockFragment;
 import fragment.SelectFragment;
 import skkk.admin.com.dakai_station.R;
@@ -66,6 +68,10 @@ public class HomeActivity extends AppCompatActivity
         initData();
         setDefaultFragemnt();
     }
+
+
+
+
 
     /*
     * @desc 初始化数据
@@ -191,9 +197,9 @@ public class HomeActivity extends AppCompatActivity
         } else if (id == R.id.nav_manage) {
 
         } else if (id == R.id.nav_share) {
-
+            stopService(new Intent(this, ClockService.class));
         } else if (id == R.id.nav_send) {
-
+            startService(new Intent(this, ClockService.class));
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

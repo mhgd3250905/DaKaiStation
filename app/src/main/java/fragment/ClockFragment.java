@@ -40,7 +40,6 @@ public class ClockFragment extends Fragment{
     private RecyclerView rvClock;
     private MySQLHelper mySQLHelper;
     private ClockRecyclerAdapter mClockRecyclerAdapter;
-    private List<String> dataFromSQL;
     private List<List<String>> mData;
     private SQLiteDatabase db;
     private Cursor cursor;
@@ -139,7 +138,7 @@ public class ClockFragment extends Fragment{
             data.add(cursor.getString(2));//start
             data.add(cursor.getString(3));//end
             data.add(cursor.getString(4));//start_time
-            data.add(cursor.getString(4));//end_time
+            data.add(cursor.getString(5));//end_time
             dataList.add(data);
         }
         cursor.close();
