@@ -4,12 +4,13 @@ import android.app.Fragment;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.OrientationHelper;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,7 +19,10 @@ import android.widget.TextView;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
+import java.lang.reflect.Type;
 import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 import activity.HomeActivity;
 import adapter.MyRecyclerAdapter;
@@ -64,6 +68,9 @@ public class ShowFragment extends Fragment {
     private List<Station> stationList;
     private String mainMileage;
     private HomeActivity parentActivity;
+    private Gson gson;
+    private Type type;
+    private HomeActivity mHomeActivity;
 
     @Nullable
     @Override
@@ -77,28 +84,44 @@ public class ShowFragment extends Fragment {
 
         init();
 
-        mRecyclerView = (RecyclerView) view.findViewById(R.id.rv_show_station);
-        LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
-        //设置布局管理器
-        mRecyclerView.setLayoutManager(layoutManager);
-        //设置为垂直布局，这也是默认的
-        layoutManager.setOrientation(OrientationHelper.VERTICAL);
-
-        //设置Adapter
-
-
-        myRecyclerAdapter= new MyRecyclerAdapter(getActivity(),stationList);
-
-        mRecyclerView.setAdapter(myRecyclerAdapter);
-        //设置分隔线
-        //mRecyclerView.addItemDecoration(new DividerGridItemDecoration(this));
-        //设置增加或删除条目的动画
-        mRecyclerView.setItemAnimator(new DefaultItemAnimator());
 
         return view;
     }
 
+private Handler handler=new Handler(){
+    @Override
+    public void handleMessage(Message msg) {
+        if (msg.what==11111){
 
+
+            fillData();
+
+            //将SP中获取的数据转存的需要的数组mDatas中
+            stationList = allData.getResult().getStation_list();
+
+            mRecyclerView = (RecyclerView) view.findViewById(R.id.rv_show_station);
+            LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
+            //设置布局管理器
+            mRecyclerView.setLayoutManager(layoutManager);
+            //设置为垂直布局，这也是默认的
+            layoutManager.setOrientation(OrientationHelper.VERTICAL);
+
+            //设置Adapter
+
+
+            myRecyclerAdapter= new MyRecyclerAdapter(getActivity(),stationList);
+
+            mRecyclerView.setAdapter(myRecyclerAdapter);
+            //设置分隔线
+            //mRecyclerView.addItemDecoration(new DividerGridItemDecoration(this));
+            //设置增加或删除条目的动画
+            mRecyclerView.setItemAnimator(new DefaultItemAnimator());
+        }else if (msg.what==12345){
+
+        }
+
+    }
+};
 
 /*
 * @desc 初始化
@@ -113,29 +136,35 @@ public class ShowFragment extends Fragment {
         tvMainEndTime = (TextView) view.findViewById(R.id.tv_train_end_time);
         tvMainMileage= (TextView) view.findViewById(R.id.tv_train_mileage);
 
-        Gson gson = new Gson();
-        java.lang.reflect.Type type = new TypeToken<AllData>() {
-        }.getType();
-        //获取网络解析出来的JSON数据
-        result = mPref.getString("all_data", "");
-        Log.d("AAAAAAAAAAAA", result);
-        allData = gson.fromJson(result, type);
-        errorCode = allData.getError_code();
-
-        if (errorCode == 0) {
-            main = allData.getResult().getTrain_info();
-            mainName = main.getName();
-            mainStart = main.getStart();
-            mainEnd = main.getEnd();
-            mainStartTime = main.getStarttime();
-            mainEndTime = main.getEndtime();
-            mainMileage = main.getMileage();
-            fillData();
-            //将SP中获取的数据转存的需要的数组mDatas中
-            stationList = allData.getResult().getStation_list();
-
-        }
-
+        ExecutorService singleThreadExector= Executors.newSingleThreadExecutor();
+        singleThreadExector.execute(new Runnable() {
+            @Override
+            public void run() {
+                gson = new Gson();
+                type = new TypeToken<AllData>() {
+                }.getType();
+                //获取网络解析出来的JSON数据
+                result = mPref.getString("all_data", "");
+                allData = gson.fromJson(result, type);
+                errorCode = allData.getError_code();
+                if (errorCode == 0) {
+                    main = allData.getResult().getTrain_info();
+                    mainName = main.getName();
+                    mainStart = main.getStart();
+                    mainEnd = main.getEnd();
+                    mainStartTime = main.getStarttime();
+                    mainEndTime = main.getEndtime();
+                    mainMileage = main.getMileage();
+                    Message msg=new Message();
+                    msg.what=11111;
+                    handler.sendMessage(msg);
+                }else {
+                    Message msg2=new Message();
+                    msg2.what=12345;
+                   handler.sendMessage(msg2);
+                }
+            }
+        });
     }
 
     private void fillData() {

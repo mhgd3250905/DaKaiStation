@@ -37,12 +37,12 @@
                     <TextView
                         android:id="@id/tv_train_start"
                         style="@style/ShowStartEnd"
-                        android:text="当阳" />
+                        android:text="起点"/>
 
                     <TextView
                         android:id="@id/tv_train_end"
                         style="@style/ShowStartEnd"
-                        android:text="荆门" />
+                        android:text="终点"/>
 
                 </LinearLayout>
 
@@ -54,13 +54,11 @@
 
                     <TextView
                         android:id="@id/tv_train_start_time"
-                        style="@style/ShowStartEndTime"
-                        android:text="17:00" />
+                        style="@style/ShowStartEndTime" />
 
                     <TextView
                         android:id="@id/tv_train_end_time"
-                        style="@style/ShowStartEndTime"
-                        android:text="19:00" />
+                        style="@style/ShowStartEndTime" />
                 </LinearLayout>
             </LinearLayout>
 
@@ -70,7 +68,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="里程：24km"
+            android:text="里程"
             android:textColor="#fff"
             android:textSize="15dp" />
 

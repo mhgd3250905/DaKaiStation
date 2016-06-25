@@ -17,6 +17,12 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+
 import java.util.List;
 
 import Utils.StationUtils;
@@ -84,19 +90,58 @@ public class SelectFragment extends Fragment {
                 startStation = actvStartStation.getText().toString().trim();
                 endStation = actvEndStation.getText().toString().trim();
                 trainId = etSelect.getText().toString().trim();
+                RequestQueue queue= Volley.newRequestQueue(getActivity());
+                String url=null;
                 FragmentTransaction transaction = getFragmentManager().beginTransaction();
                 if (!TextUtils.isEmpty(trainId) && TextUtils.
                         isEmpty(startStation) && TextUtils.isEmpty(endStation)) {
+                    //执行查找车次信息
+                    url="http://apis.juhe.cn/train/s?name="+trainId+"&key=47efc9fc09ca5666d6bfc4a81b580e89";
+                    StringRequest request=new StringRequest(url, new Response.Listener<String>() {
+                        @Override
+                        public void onResponse(String s) {
+                            mPref.edit().putString("all_data",s).commit();
+                            //设置fragment跳转
 
-                    ShowFragment mShowFragment = new ShowFragment();
-                    getFragmentManager().beginTransaction().
-                            replace(R.id.home_fragment, mShowFragment).commit();
+                            ShowFragment mShowFragment = new ShowFragment();
+                            getFragmentManager().beginTransaction().
+                                    replace(R.id.home_fragment, mShowFragment).commit();
+                        }
+                    }, new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError volleyError) {
+                            Toast.makeText(getActivity(), "查询出错", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                    queue.add(request);
+
+
                 } else if (TextUtils.isEmpty(trainId) && !TextUtils.
                         isEmpty(startStation) && !TextUtils.isEmpty(endStation)) {
+                    //执行查找车次信息
+                    url="http://apis.juhe.cn/train/s2s?start="+startStation+"&end="+
+                            endStation+"&traintype=g&key=47efc9fc09ca5666d6bfc4a81b580e89";
+                    StringRequest request=new StringRequest(url, new Response.Listener<String>() {
+                        @Override
+                        public void onResponse(String s) {
+                            mPref.edit().putString("input_station",s).commit();
+                            //设置fragment跳转
+                            StationToStationFragment mStationToStationFragment =
+                                    new StationToStationFragment();
+                            getFragmentManager().beginTransaction().replace(R.id.home_fragment,
+                                    mStationToStationFragment).commit();
+                        }
+                    }, new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError volleyError) {
+                            Toast.makeText(getActivity(), "查询出错", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                    queue.add(request);
 
-                    StationToStationFragment mStationToStationFragment =
-                            new StationToStationFragment();
-                    transaction.replace(R.id.home_fragment, mStationToStationFragment).commit();
+
+
+
                 }else{
                     Toast.makeText(getActivity(), "请输入需要查询的内容", Toast.LENGTH_SHORT).show();
                 }

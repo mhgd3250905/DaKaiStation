@@ -5,18 +5,13 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.widget.Toast;
 
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
 
-import Utils.StreamUtils;
 import skkk.admin.com.dakai_station.R;
 
 /**
@@ -61,49 +56,47 @@ public class SplashActivity extends AppCompatActivity{
     private void selectData() {
 
         //获取数据开始时间
-        start = System.currentTimeMillis();
-        mUrl="http://apis.juhe.cn/train/s?name=g4&key=47efc9fc09ca5666d6bfc4a81b580e89";
+//        start = System.currentTimeMillis();
+//        mUrl="http://apis.juhe.cn/train/s?name=g4&key=47efc9fc09ca5666d6bfc4a81b580e89";
+//
+//        new Thread(new Runnable() {
+//
+//            @Override
+//            public void run() {
+//                try {
+//                    //77ea626ec1eb28e6a026f511f0830c4a
+//                    URL url = new URL(mUrl);
+//                    HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+//                    conn.setRequestMethod("GET");//设置请求方法
+//                    conn.setConnectTimeout(5000);//设置连接超时
+//                    conn.setReadTimeout(5000);//设置响应超时，连接上了但是服务器迟迟不给响应
+//                    conn.connect();//连接服务器
+//                    int responseCode = conn.getResponseCode();//获取响应码
+//                    if (responseCode == 200) {
+//                        InputStream inputStream = conn.getInputStream();
+//                        result = StreamUtils.readFormStream(inputStream);
+//                        Log.d("AAAAAAAAAAAAAAAAAAAAAAA", result);
+//                        //将获取到的数据保存在SP中
+//                        mPref = getSharedPreferences("config", MODE_PRIVATE);
+//                        mPref.edit().putString("all_data",result).commit();
+//
+//                    }
+//                } catch (MalformedURLException e) {
+//                    //URL错误异常
+//                    e.printStackTrace();
+//                } catch (IOException e) {
+//                    //网络错误异常
+//                    e.printStackTrace();
+//                }
+//            }
+//        }).start();
+//
+//        //获取数据结束时间
+//        end = System.currentTimeMillis();
+//        //获取数据加载时间，如果大于2秒就直接跳转，否则将等待至两秒之后再跳转
+//        duration = end - start;
 
-        new Thread(new Runnable() {
-
-            @Override
-            public void run() {
-                try {
-                    //77ea626ec1eb28e6a026f511f0830c4a
-                    URL url = new URL(mUrl);
-                    HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-                    conn.setRequestMethod("GET");//设置请求方法
-                    conn.setConnectTimeout(5000);//设置连接超时
-                    conn.setReadTimeout(5000);//设置响应超时，连接上了但是服务器迟迟不给响应
-                    conn.connect();//连接服务器
-                    int responseCode = conn.getResponseCode();//获取响应码
-                    if (responseCode == 200) {
-                        InputStream inputStream = conn.getInputStream();
-                        result = StreamUtils.readFormStream(inputStream);
-                        Log.d("AAAAAAAAAAAAAAAAAAAAAAA", result);
-                        //将获取到的数据保存在SP中
-                        mPref = getSharedPreferences("config", MODE_PRIVATE);
-                        mPref.edit().putString("all_data",result).commit();
-
-                    }
-                } catch (MalformedURLException e) {
-                    //URL错误异常
-                    e.printStackTrace();
-                } catch (IOException e) {
-                    //网络错误异常
-                    e.printStackTrace();
-                }
-            }
-        }).start();
-
-        //获取数据结束时间
-        end = System.currentTimeMillis();
-        //获取数据加载时间，如果大于2秒就直接跳转，否则将等待至两秒之后再跳转
-        duration = end - start;
-
-        if (duration<2000){
-            SystemClock.sleep(2000 - duration);
-        }
+        SystemClock.sleep(1500);
         startActivity(new Intent(this,HomeActivity.class));
     }
 

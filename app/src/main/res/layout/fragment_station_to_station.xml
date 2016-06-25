@@ -10,7 +10,7 @@
         android:layout_margin="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="总计10趟列车"
+        android:text="列车数"
         android:textSize="16dp"
         android:gravity="center"
         android:textColor="#ff80ab"

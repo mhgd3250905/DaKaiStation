@@ -35,7 +35,7 @@ import skkk.admin.com.dakai_station.R;
 * 作    者：ksheng
 * 时    间：6/16
 */
-public class ClockFragment extends Fragment{
+public class ClockFragment extends Fragment {
 
     private View view;
     private HomeActivity mParentActivity;//父Activity

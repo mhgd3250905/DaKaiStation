@@ -43,5 +43,7 @@
     <item name="cv_clock" type="id">cv_clock</item>
     <item name="tv_clock_tip" type="id">tv_clock_tip</item>
     <item name="msiv_setting_clock" type="id">msiv_setting_clock</item>
+    <item name="tv_query_result" type="id">tv_query_result</item>
+    <item name="pb_query_result" type="id">pb_query_result</item>
 
 </resources>
