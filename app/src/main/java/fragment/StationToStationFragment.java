@@ -60,7 +60,6 @@ public class StationToStationFragment extends Fragment {
     private MySQLHelper mySQLHelper;//数据库帮助
     private SQLiteDatabase db;
     private String clocktimeString;
-    private List<StationBean> mData;
     private Calendar calendar;
     private int mYear;
     private int mMonth;
@@ -133,25 +132,25 @@ public class StationToStationFragment extends Fragment {
                                         //判断选择日期不可以晚于今天
                                         if(mYear>=calendar.get(Calendar.YEAR)){
                                             if(mMonth>=calendar.get(Calendar.MONTH)){
-                                                if(mDay>calendar.get(Calendar.DAY_OF_MONTH)){
+                                                if(mDay>=calendar.get(Calendar.DAY_OF_MONTH)){
                                                     db = mySQLHelper.getWritableDatabase();
                                                     ContentValues values = new ContentValues();
 
                                                     //获得标准格式的时间
                                                     clocktimeString = mYear + "-" + mMonth + "-" + mDay;
 
-                                                    values.put("train_id", mData.get(position).getTrainOpp());
-                                                    values.put("start", mData.get(position).getStart_staion());
+                                                    values.put("train_id", data.get(position).getTrainOpp());
+                                                    values.put("start", data.get(position).getStart_staion());
                                                     values.put("time", clocktimeString);
-                                                    values.put("end", mData.get(position).getEnd_station());
-                                                    values.put("from_time", mData.get(position).getLeave_time());
-                                                    values.put("to_time", mData.get(position).getArrived_time());
+                                                    values.put("end", data.get(position).getEnd_station());
+                                                    values.put("from_time", data.get(position).getLeave_time());
+                                                    values.put("to_time", data.get(position).getArrived_time());
                                                     db.insert("Clock", null, values);
                                                     if (db != null) {
                                                         db.close();
                                                     }
                                                     Toast.makeText(getActivity(),
-                                                            "列车" + mData.get(position).getTrainOpp() +
+                                                            "列车" + data.get(position).getTrainOpp() +
                                                                     "已加入提醒列表"
                                                             , Toast.LENGTH_SHORT).show();
                                                 }else {
