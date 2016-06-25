@@ -15,6 +15,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -117,7 +118,7 @@ private Handler handler=new Handler(){
             //设置增加或删除条目的动画
             mRecyclerView.setItemAnimator(new DefaultItemAnimator());
         }else if (msg.what==12345){
-
+            Toast.makeText(getActivity(), "未查询到相关列车", Toast.LENGTH_SHORT).show();
         }
 
     }

@@ -2,6 +2,7 @@ package fragment;
 
 import android.app.Fragment;
 import android.app.FragmentTransaction;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -50,6 +51,7 @@ public class SelectFragment extends Fragment {
     private String trainId;
     private HomeActivity homeActivity;
     private SharedPreferences mPref;
+    private ProgressDialog pd;
 
     @Nullable
     @Override
@@ -92,9 +94,16 @@ public class SelectFragment extends Fragment {
                 trainId = etSelect.getText().toString().trim();
                 RequestQueue queue= Volley.newRequestQueue(getActivity());
                 String url=null;
+                /*查询车次*/
+                pd = new ProgressDialog(getActivity());
+                pd.setTitle("提示");
+                pd.setMessage("正在查询...");
+                pd.setProgressStyle(ProgressDialog.STYLE_SPINNER);
                 FragmentTransaction transaction = getFragmentManager().beginTransaction();
                 if (!TextUtils.isEmpty(trainId) && TextUtils.
                         isEmpty(startStation) && TextUtils.isEmpty(endStation)) {
+                    pd.show();
+
                     //执行查找车次信息
                     url="http://apis.juhe.cn/train/s?name="+trainId+"&key=47efc9fc09ca5666d6bfc4a81b580e89";
                     StringRequest request=new StringRequest(url, new Response.Listener<String>() {
@@ -103,6 +112,7 @@ public class SelectFragment extends Fragment {
                             mPref.edit().putString("all_data",s).commit();
                             //设置fragment跳转
 
+                            pd.dismiss();
                             ShowFragment mShowFragment = new ShowFragment();
                             getFragmentManager().beginTransaction().
                                     replace(R.id.home_fragment, mShowFragment).commit();
@@ -111,20 +121,29 @@ public class SelectFragment extends Fragment {
                         @Override
                         public void onErrorResponse(VolleyError volleyError) {
                             Toast.makeText(getActivity(), "查询出错", Toast.LENGTH_SHORT).show();
+                            pd.dismiss();
                         }
                     });
                     queue.add(request);
 
 
                 } else if (TextUtils.isEmpty(trainId) && !TextUtils.
-                        isEmpty(startStation) && !TextUtils.isEmpty(endStation)) {
+                isEmpty(startStation) && !TextUtils.isEmpty(endStation)) {
+
+                    /*查询站到站*/
+                    pd.show();
+
                     //执行查找车次信息
                     url="http://apis.juhe.cn/train/s2s?start="+startStation+"&end="+
-                            endStation+"&traintype=g&key=47efc9fc09ca5666d6bfc4a81b580e89";
+                            endStation+"&key=47efc9fc09ca5666d6bfc4a81b580e89";
                     StringRequest request=new StringRequest(url, new Response.Listener<String>() {
                         @Override
                         public void onResponse(String s) {
+
+
                             mPref.edit().putString("input_station",s).commit();
+
+                            pd.dismiss();
                             //设置fragment跳转
                             StationToStationFragment mStationToStationFragment =
                                     new StationToStationFragment();
@@ -135,11 +154,10 @@ public class SelectFragment extends Fragment {
                         @Override
                         public void onErrorResponse(VolleyError volleyError) {
                             Toast.makeText(getActivity(), "查询出错", Toast.LENGTH_SHORT).show();
+                            pd.dismiss();
                         }
                     });
                     queue.add(request);
-
-
 
 
                 }else{

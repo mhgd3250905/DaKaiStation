@@ -174,7 +174,7 @@ public class StationToStationFragment extends Fragment {
                     }
                 });
             }else if(msg.what==12345){
-
+                Toast.makeText(getActivity(),"未查询到相关列车", Toast.LENGTH_SHORT).show();
             }
         }
     };
